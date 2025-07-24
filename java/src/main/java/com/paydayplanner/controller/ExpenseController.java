@@ -1,5 +1,7 @@
 package com.paydayplanner.controller;
 
+import java.math.BigDecimal;
+
 import com.paydayplanner.dto.BillDTO;
 import com.paydayplanner.service.ExpenseService;
 import jakarta.inject.Inject;
@@ -11,12 +13,18 @@ import jakarta.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class ExpenseController {
 
-    @Inject
-    ExpenseService service;
+	@Inject
+	ExpenseService service;
 
-    @POST
-    @Path("/bills")
-    public void createBill(BillDTO dto) {
-        service.createExpense(dto);
-    }
+	@POST
+	@Path("/bills")
+	public void createBill(BillDTO dto) {
+		service.createExpense(dto);
+	}
+
+	@GET
+	@Path("/monthly-total")
+	public BigDecimal getCurrentMonthTotalExpenses() {
+		return service.getCurrentMonthTotalExpenses();
+	}
 }

@@ -1,6 +1,11 @@
 package com.paydayplanner.service;
 
 import com.paydayplanner.dto.ExpenseDTO;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
+
 import com.paydayplanner.dto.BillDTO;
 import com.paydayplanner.model.Bill;
 import com.paydayplanner.model.ExpenseType;
@@ -27,5 +32,14 @@ public class ExpenseService {
         } else {
             throw new UnsupportedOperationException("Unsupported expense type: " + dto.getType());
         }
+    }
+    
+    public BigDecimal getCurrentMonthTotalExpenses() {
+        LocalDate now = LocalDate.now();
+        List<Bill> bills = billRepo.findByMonth(now.getYear(), now.getMonthValue());
+
+        return bills.stream()
+                .map(Bill::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }
