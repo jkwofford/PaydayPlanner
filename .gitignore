@@ -4,3 +4,4 @@ java/.*
 java/gradlew
 java/gradle
 java/build
+java/bin
