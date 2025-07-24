@@ -5,6 +5,7 @@ import com.paydayplanner.model.Paycheck;
 import com.paydayplanner.repository.PaycheckRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +16,7 @@ public class PaycheckService {
     @Inject
     PaycheckRepository repo;
 
+    @Transactional
     public void create(PaycheckDTO dto) {
         Paycheck p = new Paycheck();
         p.amount = dto.amount;
@@ -23,6 +25,7 @@ public class PaycheckService {
         repo.persist(p);
     }
 
+    @Transactional
     public List<PaycheckDTO> listAll() {
         return repo.listAll().stream().map(p -> {
             PaycheckDTO dto = new PaycheckDTO();
@@ -34,6 +37,7 @@ public class PaycheckService {
         }).collect(Collectors.toList());
     }
 
+    @Transactional
     public void delete(Long id) {
         repo.deleteById(id);
     }
