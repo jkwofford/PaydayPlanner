@@ -7,6 +7,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,19 +28,19 @@ public class PaycheckService {
     }
 
     @Transactional
-    public List<PaycheckDTO> listAll() {
-        return repo.listAll().stream().map(p -> {
-            PaycheckDTO dto = new PaycheckDTO();
-            dto.id = p.id;
-            dto.amount = p.amount;
-            dto.date = p.date;
-            dto.source = p.source;
-            return dto;
-        }).collect(Collectors.toList());
-    }
-
-    @Transactional
     public void delete(Long id) {
         repo.deleteById(id);
     }
+    
+    // TODO: need to make a all endpoint so you can list paychecks (as a map?)
+    
+    public BigDecimal getCurrentMonthIncome() {
+        LocalDate now = LocalDate.now();
+        List<Paycheck> paychecks = repo.findByMonth(now.getYear(), now.getMonthValue());
+
+        return paychecks.stream()
+                .map(p -> p.amount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+    
 }

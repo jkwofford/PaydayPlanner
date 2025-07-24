@@ -7,6 +7,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Path("/paychecks")
@@ -16,11 +17,6 @@ public class PaycheckController {
 
     @Inject
     PaycheckService service;
-
-    @GET
-    public List<PaycheckDTO> list() {
-        return service.listAll();
-    }
 
     @POST
     public Response create(PaycheckDTO dto) {
@@ -34,4 +30,11 @@ public class PaycheckController {
         service.delete(id);
         return Response.noContent().build();
     }
+    
+    @GET
+    @Path("/monthly-total")
+    public BigDecimal getMonthlyIncome() {
+        return service.getCurrentMonthIncome();
+    }
+    
 }
