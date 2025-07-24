@@ -1,1 +1,6 @@
 dev-diary.md
+*.swp
+java/.*
+java/gradlew
+java/gradle
+java/build
