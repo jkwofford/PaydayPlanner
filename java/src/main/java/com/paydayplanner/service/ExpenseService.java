@@ -34,8 +34,9 @@ public class ExpenseService {
         }
     }
     
-    // TODO: need to make a all endpoint so you can list paychecks (as a map?)
-   
+    // need to make a get all endpoint so you can list paychecks (as a map?)
+
+    
     public BigDecimal getCurrentMonthTotalExpenses() {
         LocalDate now = LocalDate.now();
         List<Bill> bills = billRepo.findByMonth(now.getYear(), now.getMonthValue());
