@@ -5,6 +5,9 @@ import jakarta.inject.Inject;
 
 import java.math.BigDecimal;
 
+import com.paydayplanner.dto.MonthlySummaryDTO;
+import com.paydayplanner.logic.MonthlySummaryProcessor;
+
 /**
  * The main service that handles the financial calculations.
  */
@@ -29,5 +32,12 @@ public class FinancialSummaryService {
 
     public BigDecimal getCurrentMonthExpenses() {
         return expenseService.getCurrentMonthTotalExpenses();
+    }
+    
+    @Inject
+    MonthlySummaryProcessor processor;
+
+    public MonthlySummaryDTO getMonthlySummary(int year, int month) {
+        return processor.compute(year, month);
     }
 }
