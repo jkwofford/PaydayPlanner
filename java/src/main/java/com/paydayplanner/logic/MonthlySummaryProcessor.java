@@ -22,6 +22,7 @@ public class MonthlySummaryProcessor {
     @Inject
     BillRepository billRepository;
 
+    // compute the monthly summary for a given year and month
     public MonthlySummaryDTO compute(int year, int month) {
         List<Paycheck> paychecks = paycheckRepository.findAll().stream()
             .filter(p -> p.date.getYear() == year && p.date.getMonthValue() == month)
