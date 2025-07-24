@@ -16,6 +16,8 @@ public class FinancialSummaryController {
     @Inject
     FinancialSummaryService summaryService;
 
+    // Monthly calculation endpings
+    
     @GET
     @Path("/net")
     public BigDecimal getNet() {
@@ -33,4 +35,7 @@ public class FinancialSummaryController {
     public BigDecimal getExpenses() {
         return summaryService.getCurrentMonthExpenses();
     }
+    
+    // yearly calculation endpoints can be added here in the future.
+    
 }
